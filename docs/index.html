@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Foundations of Faith - Calendar QR Code</title>
+    <title>Ethics of Life: God as The Sole Lord of Life - Calendar QR Code</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <style>
         * {
@@ -232,12 +232,12 @@
 </head>
 <body>
     <div class="container">
-        <h1>📅 Foundations of Faith</h1>
-        <div class="subtitle">Calendar QR Code</div>
+        <h1>📅 Ethics of Life: God as The Sole Lord of Life</h1>
+        <div class="subtitle">THE CATECHISM OF THE CATHOLIC CHURCH, EVANGELIUM VITAE, VERITAS SPLENDOR FRATELLI TUTTI</div>
         
         <div class="info-section">
             <h3>Event Series Information</h3>
-            <p><strong>What:</strong> Ethics of Life: God as The Sole Lord of Life</p>
+            <p><strong>What:</strong> Foundations of Faith 2025-2026</p>
             <p><strong>When:</strong> Fridays, 6:45 PM - 8:00 PM (Central)</p>
             <p><strong>Where:</strong> Parish Hall, Room 101</p>
             <p><strong>Duration:</strong> Sept 2025 - April 2026</p>
@@ -283,7 +283,7 @@
     <script>
         // Generate QR Code
         const qrcode = new QRCode(document.getElementById("qrcode"), {
-            text: "./faith-calendar-generator.html",
+            text: "https://baziwane.github.io/volunteering/docs/faith-calendar-generator.html",
             width: 256,
             height: 256,
             colorDark: "#000000",
@@ -315,7 +315,7 @@
             document.body.appendChild(tempDiv);
             
             const tempQR = new QRCode(tempDiv, {
-                text: "./faith-calendar-generator.html",
+                text: "https://baziwane.github.io/volunteering/docs/faith-calendar-generator.html",
                 width: selectedSize,
                 height: selectedSize,
                 colorDark: "#000000",
@@ -342,7 +342,7 @@
                     ctx.fillStyle = '#4a5568';
                     ctx.font = `bold ${selectedSize * 0.06}px Arial`;
                     ctx.textAlign = 'center';
-                    ctx.fillText('Foundations of Faith Calendar', paddedCanvas.width / 2, padding + 30);
+                    ctx.fillText('Foundations of Faith 2025-2026', paddedCanvas.width / 2, padding + 30);
                     
                     // Add subtitle
                     ctx.font = `${selectedSize * 0.04}px Arial`;
@@ -369,7 +369,7 @@
         }
         
         function copyURL() {
-            const url = './faith-calendar-generator.html';
+            const url = 'https://baziwane.github.io/volunteering/docs/faith-calendar-generator.html';
             navigator.clipboard.writeText(url).then(() => {
                 showStatus('Link copied to clipboard!');
             }).catch(() => {
