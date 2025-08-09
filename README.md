@@ -1,23 +1,15 @@
-# Foundations of Faith Calendar Generator
 
-## 📅 About This Project
+# About This Project
 
-This repository contains calendar tools I developed as a volunteer for Saint Martin de Porres Catholic Church to help our parish community easily add the **Foundations of Faith** lecture series to their personal calendars.
+This repository contains tools I am developing as a volunteer for Saint Martin de Porres Catholic Church, Prosper TX to help our parish community easily find things.
 
 ## 🙏 Volunteer Initiative
 
-As a member of our parish community, I created these tools to:
-- Make it easier for parishioners to stay informed about upcoming faith formation lectures
-- Reduce the manual work of adding multiple events to calendars
-- Provide a simple, accessible way to share the lecture schedule with others
-- Support our Office of Religious Education in spreading awareness about these important sessions
-
-## 📚 Lecture Series Information
-
-**Series Title:** Ethics of Life: God as The Sole Lord of Life  
-**Schedule:** Fridays, 6:45 PM - 8:00 PM (Central Time)  
-**Location:** Parish Hall, Room 101  
-**Duration:** September 2025 - April 2026
+As a member of our parish community, I am creating these tools to:
+- Make it easier for parishioners to stay informed about upcoming events
+- Reduce the manual work of volunteering
+- Provide a simple, accessible way to share with others
+- Support our Parish Office in spreading awareness about these important sessions
 
 ## 🛠️ Tools Included
 
