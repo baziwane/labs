@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Foundations of Faith - Calendar Event Generator</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        h1 {
+            color: #4a5568;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 2em;
+        }
+        .subtitle {
+            text-align: center;
+            color: #718096;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+        .info-box {
+            background: #f7fafc;
+            border-left: 4px solid #667eea;
+            padding: 15px;
+            margin-bottom: 30px;
+            border-radius: 5px;
+        }
+        .info-box p {
+            margin: 5px 0;
+            color: #4a5568;
+        }
+        .button-container {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: transform 0.2s, box-shadow 0.2s;
+            flex: 1;
+            min-width: 200px;
+        }
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.4);
+        }
+        button:active {
+            transform: translateY(0);
+        }
+        .events-list {
+            margin-top: 20px;
+        }
+        .month-section {
+            margin-bottom: 25px;
+        }
+        .month-header {
+            background: linear-gradient(135deg, #f6f8fb 0%, #e9ecef 100%);
+            padding: 10px 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: #4a5568;
+        }
+        .event-item {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            margin: 8px 0;
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+        .event-item:hover {
+            background: #f7fafc;
+            border-color: #cbd5e0;
+            transform: translateX(5px);
+        }
+        .event-checkbox {
+            margin-right: 15px;
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+        .event-date {
+            font-weight: 600;
+            color: #667eea;
+            margin-right: 15px;
+            min-width: 100px;
+        }
+        .event-title {
+            color: #2d3748;
+            flex: 1;
+        }
+        .instructions {
+            background: #edf2f7;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 30px;
+        }
+        .instructions h3 {
+            color: #4a5568;
+            margin-top: 0;
+        }
+        .instructions ol {
+            color: #4a5568;
+            line-height: 1.8;
+        }
+        .select-controls {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        .select-controls button {
+            background: #e2e8f0;
+            color: #4a5568;
+            min-width: 100px;
+            flex: 0;
+            padding: 8px 16px;
+            font-size: 14px;
+        }
+        .select-controls button:hover {
+            background: #cbd5e0;
+        }
+        .status-message {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #48bb78;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 8px;
+            display: none;
+            animation: slideIn 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        @keyframes slideIn {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📅 Foundations of Faith</h1>
+        <div class="subtitle">Calendar Event Generator</div>
+        
+        <div class="info-box">
+            <p><strong>Series:</strong> Ethics of Life: God as The Sole Lord of Life</p>
+            <p><strong>When:</strong> Fridays, 6:45 PM - 8:00 PM (Central Time)</p>
+            <p><strong>Where:</strong> Saint Martin de Porres Catholic Church - Parish Hall Room 101</p>
+            <p><strong>Duration:</strong> September 2025 - April 2026</p>
+        </div>
+
+        <div class="button-container">
+            <button onclick="downloadAllEvents()">📥 Download All Events (.ics)</button>
+            <button onclick="downloadSelectedEvents()">📥 Download Selected Events</button>
+            <button onclick="copyGoogleCalendarURL()">📋 Copy Google Calendar Import URL</button>
+        </div>
+
+        <div class="select-controls">
+            <button onclick="selectAll()">Select All</button>
+            <button onclick="deselectAll()">Deselect All</button>
+        </div>
+
+        <div class="events-list">
+            <div class="month-section">
+                <div class="month-header">September 2025</div>
+                <div class="event-item">
+                    <input type="checkbox" class="event-checkbox" checked data-date="2025-09-12" data-title="Marked, not executed: Cain and the first mercy">
+                    <span class="event-date">Sep 12</span>
+                    <span class="event-title">Marked, not executed: Cain and the first mercy</span>
+                </div>
+                <div class="event-item">
+                    <input type="checkbox" class="event-checkbox" checked data-date="2025-09-26" data-title="Inadmissible: The Church's mature stance on capital punishment">
+                    <span class="event-date">Sep 26</span>
+                    <span class="event-title">Inadmissible: The Church's mature stance on capital punishment</span>
+                </div>
+            </div>
+
+            <div class="month-section">
+                <div class="month-header">October 2025</div>
+                <div class="event-item">
+                    <input type="checkbox" class="event-checkbox" checked data-date="2025-10-10" data-title="Foundations of the sanctity of human life">
+                    <span class="event-date">Oct 10</span>
+                    <span class="event-title">Foundations of the sanctity of human life</span>
+                </div>
+                <div class="event-item">
+                    <input type="checkbox" class="event-checkbox" checked data-date="2025-10-24" data-title="Modern threats to human life">
+                    <span class="event-date">Oct 24</span>
+                    <span class="event-title">Modern threats to human life</span>
+                </div>
+            </div>
+
+            <div class="month-section">
+                <div class="month-header">November 2025</div>
+                <div class="event-item">
+                    <input type="checkbox" class="event-checkbox" checked data-date="2025-11-14" data-title="Moral gravity of direct attacks on innocent human life">
+                    <span class="event-date">Nov 14</span>
+                    <span class="event-title">Moral gravity of direct attacks on innocent human life</span>
+                </div>
+            </div>
+
+            <div class="month-section">
+                <div class="month-header">December 2025</div>
+                <div class="event-item">
+                    <input type="checkbox" class="event-checkbox" checked data-date="2025-12-05" data-title="Authentic freedom vs. false freedom">
+                    <span class="event-date">Dec 5</span>
+                    <span class="event-title">Authentic freedom vs. false freedom</span>
+                </div>
+                <div class="event-item">
+                    <input type="checkbox" class="event-checkbox" checked data-date="2025-12-19" data-title="Gospel of Life - rooted in Jesus, the Lord of life">
+                    <span class="event-date">Dec 19</span>
+                    <span class="event-title">Gospel of Life - rooted in Jesus, the Lord of life</span>
+                </div>
+            </div>
+
+            <div class="month-section">
+                <div class="month-header">January 2026</div>
+                <div class="event-item">
+                    <input type="checkbox" class="event-checkbox" checked data-date="2026-01-09" data-title="Call to proclaim, celebrate, and serve the Gospel of Life in daily life">
+                    <span class="event-date">Jan 9</span>
+                    <span class="event-title">Call to proclaim, celebrate, and serve the Gospel of Life in daily life</span>
+                </div>
+                <div class="event-item">
+                    <input type="checkbox" class="event-checkbox" checked data-date="2026-01-23" data-title="Truth and Love: Why marriage can't be re-branded. The problem with gay unions">
+                    <span class="event-date">Jan 23</span>
+                    <span class="event-title">Truth and Love: Why marriage can't be re-branded. The problem with gay unions</span>
+                </div>
+            </div>
+
+            <div class="month-section">
+                <div class="month-header">February 2026</div>
+                <div class="event-item">
+                    <input type="checkbox" class="event-checkbox" checked data-date="2026-02-06" data-title="Dangers of individualism and the false security of isolation">
+                    <span class="event-date">Feb 6</span>
+                    <span class="event-title">Dangers of individualism and the false security of isolation</span>
+                </div>
+                <div class="event-item">
+                    <input type="checkbox" class="event-checkbox" checked data-date="2026-02-20" data-title="Personal and communal responsibilities toward the suffering and marginalized">
+                    <span class="event-date">Feb 20</span>
+                    <span class="event-title">Personal and communal responsibilities toward the suffering and marginalized</span>
+                </div>
+            </div>
+
+            <div class="month-section">
+                <div class="month-header">March 2026</div>
+                <div class="event-item">
+                    <input type="checkbox" class="event-checkbox" checked data-date="2026-03-06" data-title="Authentic hospitality toward migrants and the poor">
+                    <span class="event-date">Mar 6</span>
+                    <span class="event-title">Authentic hospitality toward migrants and the poor</span>
+                </div>
+                <div class="event-item">
+                    <input type="checkbox" class="event-checkbox" checked data-date="2026-03-27" data-title="The dignity of the human person">
+                    <span class="event-date">Mar 27</span>
+                    <span class="event-title">The dignity of the human person</span>
+                </div>
+            </div>
+
+            <div class="month-section">
+                <div class="month-header">April 2026</div>
+                <div class="event-item">
+                    <input type="checkbox" class="event-checkbox" checked data-date="2026-04-17" data-title="Building a Civilization of Love and Fraternity">
+                    <span class="event-date">Apr 17</span>
+                    <span class="event-title">Building a Civilization of Love and Fraternity</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="instructions">
+            <h3>📌 How to Import to Google Calendar:</h3>
+            <ol>
+                <li>Click "Download All Events" or select specific events and click "Download Selected Events"</li>
+                <li>Open Google Calendar in your browser</li>
+                <li>Click the gear icon (⚙️) and select "Settings"</li>
+                <li>On the left sidebar, click "Import & export"</li>
+                <li>Click "Select file from your computer" and choose the downloaded .ics file</li>
+                <li>Select your "Family" calendar from the dropdown</li>
+                <li>Click "Import" to add all events to your calendar</li>
+            </ol>
+            <p><strong>Alternative:</strong> You can also drag and drop the .ics file directly into Google Calendar!</p>
+        </div>
+    </div>
+
+    <div class="status-message" id="statusMessage"></div>
+
+    <script>
+        function formatDate(dateStr) {
+            // Convert date to YYYYMMDD format for iCal
+            return dateStr.replace(/-/g, '');
+        }
+
+        function generateICS(events) {
+            let ics = 'BEGIN:VCALENDAR\n';
+            ics += 'VERSION:2.0\n';
+            ics += 'PRODID:-//Foundations of Faith//Calendar Generator//EN\n';
+            ics += 'CALSCALE:GREGORIAN\n';
+            ics += 'METHOD:PUBLISH\n';
+            
+            events.forEach((event, index) => {
+                const startDate = formatDate(event.date);
+                const endDate = startDate; // Same day event
+                const uid = `faith-lecture-${event.date}-${index}@churchcalendar`;
+                
+                ics += 'BEGIN:VEVENT\n';
+                ics += `UID:${uid}\n`;
+                ics += `DTSTAMP:${new Date().toISOString().replace(/[-:]/g, '').split('.')[0]}Z\n`;
+                ics += `DTSTART;TZID=America/Chicago:${startDate}T184500\n`;
+                ics += `DTEND;TZID=America/Chicago:${startDate}T200000\n`;
+                ics += `SUMMARY:${event.title}\n`;
+                ics += `DESCRIPTION:Foundations of Faith Lecture Series - Ethics of Life: God as The Sole Lord of Life\n`;
+                ics += `LOCATION:Saint Martin de Porres Catholic Church - Parish Hall Room 101\n`;
+                ics += 'END:VEVENT\n';
+            });
+            
+            ics += 'END:VCALENDAR';
+            return ics;
+        }
+
+        function downloadICS(content, filename) {
+            const blob = new Blob([content], { type: 'text/calendar' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+            
+            showStatus('Calendar file downloaded successfully!');
+        }
+
+        function getSelectedEvents() {
+            const checkboxes = document.querySelectorAll('.event-checkbox:checked');
+            const events = [];
+            checkboxes.forEach(checkbox => {
+                events.push({
+                    date: checkbox.dataset.date,
+                    title: checkbox.dataset.title
+                });
+            });
+            return events;
+        }
+
+        function downloadAllEvents() {
+            const checkboxes = document.querySelectorAll('.event-checkbox');
+            const events = [];
+            checkboxes.forEach(checkbox => {
+                events.push({
+                    date: checkbox.dataset.date,
+                    title: checkbox.dataset.title
+                });
+            });
+            
+            const ics = generateICS(events);
+            downloadICS(ics, 'foundations-of-faith-all-events.ics');
+        }
+
+        function downloadSelectedEvents() {
+            const events = getSelectedEvents();
+            if (events.length === 0) {
+                showStatus('Please select at least one event!', 'error');
+                return;
+            }
+            
+            const ics = generateICS(events);
+            downloadICS(ics, 'foundations-of-faith-selected-events.ics');
+        }
+
+        function selectAll() {
+            document.querySelectorAll('.event-checkbox').forEach(checkbox => {
+                checkbox.checked = true;
+            });
+            showStatus('All events selected');
+        }
+
+        function deselectAll() {
+            document.querySelectorAll('.event-checkbox').forEach(checkbox => {
+                checkbox.checked = false;
+            });
+            showStatus('All events deselected');
+        }
+
+        function copyGoogleCalendarURL() {
+            const url = 'https://calendar.google.com/calendar/r/settings/export';
+            navigator.clipboard.writeText(url).then(() => {
+                showStatus('Google Calendar import URL copied to clipboard!');
+            }).catch(() => {
+                showStatus('Failed to copy URL. Please try again.', 'error');
+            });
+        }
+
+        function showStatus(message, type = 'success') {
+            const statusEl = document.getElementById('statusMessage');
+            statusEl.textContent = message;
+            statusEl.style.background = type === 'error' ? '#f56565' : '#48bb78';
+            statusEl.style.display = 'block';
+            
+            setTimeout(() => {
+                statusEl.style.display = 'none';
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
