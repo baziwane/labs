@@ -274,7 +274,7 @@
         </div>
         
         <div class="url-display">
-            https://claude.ai/public/artifacts/0248b0f2-39f7-4e8d-b795-fbf71e8004e2
+            ./faith-calendar-generator.html
         </div>
     </div>
     
@@ -283,7 +283,7 @@
     <script>
         // Generate QR Code
         const qrcode = new QRCode(document.getElementById("qrcode"), {
-            text: "https://claude.ai/public/artifacts/0248b0f2-39f7-4e8d-b795-fbf71e8004e2",
+            text: "./faith-calendar-generator.html",
             width: 256,
             height: 256,
             colorDark: "#000000",
@@ -315,7 +315,7 @@
             document.body.appendChild(tempDiv);
             
             const tempQR = new QRCode(tempDiv, {
-                text: "https://claude.ai/public/artifacts/0248b0f2-39f7-4e8d-b795-fbf71e8004e2",
+                text: "./faith-calendar-generator.html",
                 width: selectedSize,
                 height: selectedSize,
                 colorDark: "#000000",
@@ -369,7 +369,7 @@
         }
         
         function copyURL() {
-            const url = 'https://claude.ai/public/artifacts/0248b0f2-39f7-4e8d-b795-fbf71e8004e2';
+            const url = './faith-calendar-generator.html';
             navigator.clipboard.writeText(url).then(() => {
                 showStatus('Link copied to clipboard!');
             }).catch(() => {
